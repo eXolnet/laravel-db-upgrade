@@ -27,7 +27,17 @@ Review and update the default configuration according to your use case (see Usag
 
 ## Usage
 
-Explain how to use your package.
+1. Create migrations to obtain your current database structure;
+2. Configure `last_migration_for_upgrade` to points to the last migration that represent your current database structure;
+3. Optionally, you can add migrations to update your old structure;
+4. Run the `php artisan db:upgrade` command.
+
+The `db:upgrade` command will perform the following actions:
+
+1. Backup your data;
+2. Run your migrations up to the `last_migration_for_upgrade` migration;
+3. Restore your data;
+4. Run remaining migration.
 
 ## Testing
 
