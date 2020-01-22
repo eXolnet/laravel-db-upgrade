@@ -145,7 +145,7 @@ class DbUpgradeCommand extends Command
         }
 
         if (!$this->option('force') && !$this->confirm('Do you have a backup of your database?')) {
-            throw new DbUpgradeException('You need to have a backup to perform the upgrade.');
+            throw new PreConditionNotMetException('You need to have a backup to perform the upgrade.');
         }
 
         $this->commandMysqlDump = $this->findExecutable('mysqldump');
@@ -393,7 +393,7 @@ class DbUpgradeCommand extends Command
         $executable = $this->executableFinder->find($name);
 
         if (!$executable) {
-            throw new DbUpgradeException('Could not find executable ' . $name . ' on your system.');
+            throw new PreConditionNotMetException('Could not find executable ' . $name . ' on your system.');
         }
 
         return $executable;
