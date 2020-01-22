@@ -1,0 +1,56 @@
+{
+    "name": "exolnet/:package_name",
+    "description": ":package_description",
+    "keywords": [
+        "exolnet",
+        "laravel",
+        ":package_name"
+    ],
+    "homepage": "https://github.com/eXolnet/:package_name",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": ":author_name",
+            "homepage": "https://www.exolnet.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^6.0",
+        "orchestra/testbench" : "^3.5",
+        "squizlabs/php_codesniffer": "^3.3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Exolnet\\Skeleton\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Exolnet\\Skeleton\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "lint": "vendor/bin/phpcs -p --standard=PSR2 config src tests",
+        "lint-fix": "vendor/bin/phpcbf -p --standard=PSR2 config src tests",
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Exolnet\\Skeleton\\SkeletonServiceProvider"
+            ],
+            "aliases": {
+                "Skeleton": "Exolnet\\Skeleton\\SkeletonFacade"
+            }
+        }
+    }
+}
