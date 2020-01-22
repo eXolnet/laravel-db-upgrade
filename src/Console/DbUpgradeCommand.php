@@ -4,13 +4,13 @@ namespace Exolnet\DbUpgrade\Console;
 
 use Exception;
 use Exolnet\DbUpgrade\Exceptions\PreConditionNotMetException;
+use Exolnet\DbUpgrade\Exceptions\DbUpgradeException;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use RuntimeException;
 use Symfony\Component\Process\ExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -146,7 +146,7 @@ class DbUpgradeCommand extends Command
         }
 
         if (!$this->option('force') && !$this->confirm('Do you have a backup of your database?')) {
-            throw new RuntimeException('You need to have a backup to perform the upgrade.');
+            throw new DbUpgradeException('You need to have a backup to perform the upgrade.');
         }
 
         $this->commandMysqlDump = $this->findExecutable('mysqldump');
@@ -183,7 +183,7 @@ class DbUpgradeCommand extends Command
         $export = Process::fromShellCommandline($command);
 
         if ($export->run() !== 0) {
-            throw new RuntimeException(
+            throw new DbUpgradeException(
                 'Could not create a backup of the database.' . PHP_EOL .
                 $export->getErrorOutput()
             );
@@ -192,7 +192,7 @@ class DbUpgradeCommand extends Command
         // Verify the file exists and is not empty
         $stat = @stat($backupFile);
         if (!$stat || $stat['size'] === 0) {
-            throw new RuntimeException('Database backup file was not created or was empty.');
+            throw new DbUpgradeException('Database backup file was not created or was empty.');
         }
     }
 
@@ -209,7 +209,7 @@ class DbUpgradeCommand extends Command
         // Verify the file exists and is not empty
         $stat = @stat($backupFile);
         if (!$stat || $stat['size'] === 0) {
-            throw new RuntimeException('Source backup file does not exist or is empty, aborting.');
+            throw new DbUpgradeException('Source backup file does not exist or is empty, aborting.');
         }
 
         $this->wipeDatabase();
@@ -223,7 +223,7 @@ class DbUpgradeCommand extends Command
         $export = Process::fromShellCommandline($command);
 
         if ($export->run() !== 0) {
-            throw new RuntimeException('Could not restore the database.' . PHP_EOL . $export->getErrorOutput());
+            throw new DbUpgradeException('Could not restore the database.' . PHP_EOL . $export->getErrorOutput());
         }
     }
 
@@ -247,7 +247,7 @@ class DbUpgradeCommand extends Command
         $export = Process::fromShellCommandline($command);
 
         if ($export->run() !== 0) {
-            throw new RuntimeException(
+            throw new DbUpgradeException(
                 'Could not create a backup of the database content.' . PHP_EOL .
                 $export->getErrorOutput()
             );
@@ -256,7 +256,7 @@ class DbUpgradeCommand extends Command
         // Verify the file exists and is not empty
         $stat = @stat($contentFile);
         if (!$stat || $stat['size'] === 0) {
-            throw new RuntimeException('Database content backup file was not created or was empty.');
+            throw new DbUpgradeException('Database content backup file was not created or was empty.');
         }
     }
 
@@ -319,7 +319,7 @@ class DbUpgradeCommand extends Command
         $export = Process::fromShellCommandline($command);
 
         if ($export->run() !== 0) {
-            throw new RuntimeException('Could not import the current content.' . PHP_EOL . $export->getErrorOutput());
+            throw new DbUpgradeException('Could not import the current content.' . PHP_EOL . $export->getErrorOutput());
         }
     }
 
@@ -394,7 +394,7 @@ class DbUpgradeCommand extends Command
         $executable = $this->executableFinder->find($name);
 
         if (!$executable) {
-            throw new RuntimeException('Could not find executable ' . $name . ' on your system.');
+            throw new DbUpgradeException('Could not find executable ' . $name . ' on your system.');
         }
 
         return $executable;
