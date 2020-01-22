@@ -7,6 +7,7 @@ use Exolnet\DbUpgrade\Exception\PreConditionNotMetException;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use RuntimeException;
@@ -103,7 +104,7 @@ class DbUpgradeCommand extends Command
             $this->exportContent();
 
             // 4. Empty the database
-            $this->emptyDatabase();
+            $this->wipeDatabase();
 
             try {
                 // 5. Migrate up to the last migration for upgrade
@@ -211,7 +212,7 @@ class DbUpgradeCommand extends Command
             throw new RuntimeException('Source backup file does not exist or is empty, aborting.');
         }
 
-        $this->emptyDatabase();
+        $this->wipeDatabase();
 
         $command = 'cat "' . $backupFile . '" | "' . $this->commandMysql .
             '" -h "' . $config['host'] .
@@ -262,17 +263,11 @@ class DbUpgradeCommand extends Command
     /**
      * @return void
      */
-    protected function emptyDatabase(): void
+    protected function wipeDatabase(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
-
-        foreach ($tables as $table) {
-            Schema::drop($table);
-        }
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        $this->call('db:wipe', [
+            'force' => $this->option('force'),
+        ]);
     }
 
     /**
