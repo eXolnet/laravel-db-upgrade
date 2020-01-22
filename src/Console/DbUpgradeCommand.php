@@ -74,9 +74,9 @@ class DbUpgradeCommand extends Command
      */
     public function __construct(Filesystem $filesystem, ExecutableFinder $executableFinder)
     {
-        $this->filesystem = $filesystem;
-
         parent::__construct();
+
+        $this->filesystem = $filesystem;
         $this->executableFinder = $executableFinder;
     }
 
