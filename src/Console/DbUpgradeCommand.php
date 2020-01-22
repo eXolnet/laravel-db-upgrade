@@ -265,7 +265,7 @@ class DbUpgradeCommand extends Command
     protected function wipeDatabase(): void
     {
         $this->call('db:wipe', [
-            'force' => $this->option('force'),
+            '--force' => $this->option('force'),
         ]);
     }
 
