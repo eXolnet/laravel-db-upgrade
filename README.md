@@ -1,32 +1,30 @@
-# :package_name
+# laravel-db-upgrade
 
-[![Latest Stable Version](https://poser.pugx.org/eXolnet/:package_name/v/stable?format=flat-square)](https://packagist.org/packages/eXolnet/:package_name)
+[![Latest Stable Version](https://poser.pugx.org/eXolnet/laravel-db-upgrade/v/stable?format=flat-square)](https://packagist.org/packages/eXolnet/laravel-db-upgrade)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/eXolnet/:package_name/master.svg?style=flat-square)](https://travis-ci.org/eXolnet/:package_name)
-[![Total Downloads](https://img.shields.io/packagist/dt/eXolnet/:package_name.svg?style=flat-square)](https://packagist.org/packages/eXolnet/:package_name)
+[![Build Status](https://img.shields.io/travis/eXolnet/laravel-db-upgrade/master.svg?style=flat-square)](https://travis-ci.org/eXolnet/laravel-db-upgrade)
+[![Total Downloads](https://img.shields.io/packagist/dt/eXolnet/laravel-db-upgrade.svg?style=flat-square)](https://packagist.org/packages/eXolnet/laravel-db-upgrade)
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_email``` ```:package_name``` ```:package_description``` with their correct values, then delete this line.
-
-:package_description
+Artisan command to migrate an existing production database structure to use Laravel migrations
 
 ## Installation
 
 Require this package with composer:
 
 ```
-composer require exolnet/:package_name
+composer require exolnet/laravel-db-upgrade
 ```
 
 If you don't use package auto-discovery, add the service provider to the ``providers`` array in `config/app.php`:
 
 ```
-Exolnet\Skeleton\SkeletonServiceProvider::class
+Exolnet\DbUpgrade\SkeletonServiceProvider::class
 ```
 
 And the facade to the ``facades`` array in `config/app.php`: 
 
 ```
-'Skeleton' => Exolnet\Skeleton\SkeletonFacade::class
+'Skeleton' => Exolnet\DbUpgrade\SkeletonFacade::class
 ```
 
 ## Usage
@@ -51,7 +49,7 @@ If you discover any security related issues, please email security@exolnet.com i
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Alexandre D'Eschambeault](https://github.com/xel1045)
 - [All Contributors](../../contributors)
 
 ## License

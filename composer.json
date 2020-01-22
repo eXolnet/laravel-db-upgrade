@@ -1,37 +1,39 @@
 {
-    "name": "exolnet/:package_name",
-    "description": ":package_description",
+    "name": "exolnet/laravel-db-upgrade",
+    "description": "Artisan command to migrate an existing production database structure to use Laravel migrations",
     "keywords": [
         "exolnet",
         "laravel",
-        ":package_name"
+        "laravel-db-upgrade"
     ],
-    "homepage": "https://github.com/eXolnet/:package_name",
+    "homepage": "https://github.com/eXolnet/laravel-db-upgrade",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
+            "name": "Alexandre D'Eschambeault",
             "homepage": "https://www.exolnet.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "illuminate/console": "^6.0",
+        "illuminate/support": "^6.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^6.0",
-        "orchestra/testbench" : "^3.5",
+        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench" : "^4.0",
         "squizlabs/php_codesniffer": "^3.3.2"
     },
     "autoload": {
         "psr-4": {
-            "Exolnet\\Skeleton\\": "src/"
+            "Exolnet\\DbUpgrade\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Exolnet\\Skeleton\\Tests\\": "tests"
+            "Exolnet\\DbUpgrade\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -46,11 +48,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Exolnet\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "Exolnet\\Skeleton\\SkeletonFacade"
-            }
+                "Exolnet\\DbUpgrade\\DbUpgradeServiceProvider"
+            ]
         }
     }
 }
