@@ -3,7 +3,7 @@
 namespace Exolnet\DbUpgrade\Console;
 
 use Exception;
-use Exolnet\DbUpgrade\Exception\PreConditionNotMetException;
+use Exolnet\DbUpgrade\Exceptions\PreConditionNotMetException;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
