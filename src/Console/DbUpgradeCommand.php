@@ -364,29 +364,6 @@ class DbUpgradeCommand extends Command
     }
 
     /**
-     * @return string
-     */
-    protected function getDatabaseConnection(): string
-    {
-        return config('database.default');
-    }
-
-    /**
-     * @return array
-     */
-    protected function getDatabaseConfig(): array
-    {
-        $config  = config('database.connections.' . $this->getDatabaseConnection());
-        $driver = $config['driver'] ?? null;
-
-        if ($driver !== 'mysql') {
-            throw new DbUpgradeException('Only driver MySQL is supported.');
-        }
-
-        return $config;
-    }
-
-    /**
      * @param string|null $path
      * @return string
      */
@@ -412,6 +389,29 @@ class DbUpgradeCommand extends Command
         }
 
         return $executable;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getDatabaseConnection(): string
+    {
+        return config('database.default');
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDatabaseConfig(): array
+    {
+        $config  = config('database.connections.' . $this->getDatabaseConnection());
+        $driver = $config['driver'] ?? null;
+
+        if ($driver !== 'mysql') {
+            throw new DbUpgradeException('Only driver MySQL is supported.');
+        }
+
+        return $config;
     }
 
     /**
