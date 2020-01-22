@@ -3,6 +3,7 @@
 namespace Exolnet\DbUpgrade\Console;
 
 use Exception;
+use Exolnet\DbUpgrade\Exception\PreConditionNotMetException;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
@@ -125,9 +126,7 @@ class DbUpgradeCommand extends Command
     {
         $this->info('Checking pre-conditions.');
 
-        if (!$this->detectExistingDatabase()) {
-            throw new RuntimeException('The current database does not looks like a pre-migrations database.');
-        }
+        $this->checkExistingDatabase();
 
         $migrationPath = $this->getTemporaryUpgradePath();
 
@@ -347,24 +346,22 @@ class DbUpgradeCommand extends Command
     }
 
     /**
-     * @return bool
+     * @return void
      */
-    protected function detectExistingDatabase(): bool
+    protected function checkExistingDatabase(): void
     {
         // If the migrations table exist, it must be empty, otherwise fail
         if (Schema::hasTable('migrations')) {
             if (DB::table('migrations')->count() !== 0) {
-                return false;
+                throw new PreConditionNotMetException('A not empty migrations table already exists.');
             }
         }
 
         foreach ($this->getExpectedTables() as $table) {
             if (! Schema::hasTable($table)) {
-                return false;
+                throw new PreConditionNotMetException('Could not find required table "'. $table .'".');
             }
         }
-
-        return true;
     }
 
     /**
