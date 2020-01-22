@@ -32,7 +32,7 @@ class DbUpgradeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'db:upgrade {--force}';
+    protected $signature = 'db:upgrade {--force : Force the operation to run when in production}';
 
     /**
      * The console command description.
