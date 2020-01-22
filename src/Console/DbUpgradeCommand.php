@@ -62,6 +62,11 @@ class DbUpgradeCommand extends Command
     protected $commandMysql;
 
     /**
+     * @var string|null
+     */
+    protected $temporaryPathPrefix;
+
+    /**
      * Create a new command instance.
      *
      * @param \Illuminate\Filesystem\Filesystem $filesystem
@@ -378,7 +383,11 @@ class DbUpgradeCommand extends Command
      */
     protected function getTemporaryUpgradePath($path = null): string
     {
-        return storage_path(rtrim('upgrade/' . $path, '/'));
+        if (! $this->temporaryPathPrefix) {
+            $this->temporaryPathPrefix = now()->toDateTimeString();
+        }
+
+        return storage_path(rtrim('upgrade-'. $this->temporaryPathPrefix .'/' . $path, '/'));
     }
 
     /**
