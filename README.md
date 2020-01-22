@@ -11,21 +11,19 @@ Artisan command to migrate an existing production database structure to use Lara
 
 Require this package with composer:
 
-```
+``` bash
 composer require exolnet/laravel-db-upgrade
 ```
 
-If you don't use package auto-discovery, add the service provider to the ``providers`` array in `config/app.php`:
+The package will automatically register its service provider.
 
-```
-Exolnet\DbUpgrade\SkeletonServiceProvider::class
+Publish the config file to `config/db-upgrade.php` using:
+
+``` bash
+php artisan vendor:publish --provider="Exolnet\DbUpgrade\DbUpgradeServiceProvider"
 ```
 
-And the facade to the ``facades`` array in `config/app.php`: 
-
-```
-'Skeleton' => Exolnet\DbUpgrade\SkeletonFacade::class
-```
+Review and update the default configuration according to your use case (see Usage section for more information).
 
 ## Usage
 
