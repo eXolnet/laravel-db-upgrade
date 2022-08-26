@@ -20,12 +20,12 @@ class DbUpgradeCommand extends Command
     /**
      * @var string
      */
-    const UPGRADE_CONTENT_FILENAME = 'content.sql';
+    protected const UPGRADE_CONTENT_FILENAME = 'content.sql';
 
     /**
      * @var string
      */
-    const UPGRADE_BACKUP_FILENAME = 'backup.sql';
+    protected const UPGRADE_BACKUP_FILENAME = 'backup.sql';
 
     /**
      * The name and signature of the console command.
@@ -309,7 +309,7 @@ class DbUpgradeCommand extends Command
         $config = $this->getDatabaseConfig();
         $contentFile = $this->getTemporaryUpgradePath(static::UPGRADE_CONTENT_FILENAME);
 
-        $command = 'cat "' . $contentFile . '" | "' .$this->commandMysql .
+        $command = 'cat "' . $contentFile . '" | "' . $this->commandMysql .
             '" -h "' . $config['host'] .
             '" -u "' . $config['username'] . '" ' .
             ($config['password'] ? '-p"' . $config['password'] . '"' : '') .
@@ -358,7 +358,7 @@ class DbUpgradeCommand extends Command
 
         foreach ($this->getExpectedTables() as $table) {
             if (! Schema::hasTable($table)) {
-                throw new PreConditionNotMetException('Could not find required table "'. $table .'".');
+                throw new PreConditionNotMetException('Could not find required table "' . $table . '".');
             }
         }
     }
@@ -373,7 +373,7 @@ class DbUpgradeCommand extends Command
             $this->temporaryPathPrefix = now()->toDateTimeString();
         }
 
-        return storage_path(rtrim('upgrade-'. $this->temporaryPathPrefix .'/' . $path, '/'));
+        return storage_path(rtrim('upgrade-' . $this->temporaryPathPrefix . '/' . $path, '/'));
     }
 
     /**

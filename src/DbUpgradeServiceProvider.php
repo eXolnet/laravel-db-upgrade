@@ -16,7 +16,7 @@ class DbUpgradeServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__.'/../config/db-upgrade.php' => config_path('db-upgrade.php'),
+            __DIR__ . '/../config/db-upgrade.php' => config_path('db-upgrade.php'),
         ], 'config');
     }
 
