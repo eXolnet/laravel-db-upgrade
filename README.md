@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/eXolnet/laravel-db-upgrade/v/stable?format=flat-square)](https://packagist.org/packages/eXolnet/laravel-db-upgrade)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/github/workflow/status/eXolnet/laravel-db-upgrade/tests?label=tests&style=flat-square)](https://github.com/eXolnet/laravel-db-upgrade/actions?query=workflow%3Atests)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/eXolnet/laravel-db-upgrade/tests.yml?label=tests&style=flat-square)](https://github.com/eXolnet/laravel-db-upgrade/actions?query=workflow%3Atests)
 [![Total Downloads](https://img.shields.io/packagist/dt/eXolnet/laravel-db-upgrade.svg?style=flat-square)](https://packagist.org/packages/eXolnet/laravel-db-upgrade)
 
 Artisan command to migrate an existing production database structure to use Laravel migrations
