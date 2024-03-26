@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 use Mockery as m;
 use Symfony\Component\Process\ExecutableFinder;
 
-class DbUpgradeCommandTest extends UnitTest
+class DbUpgradeCommandTest extends TestCase
 {
     /**
      * @var \Illuminate\Filesystem\Filesystem|\Mockery\LegacyMockInterface|\Mockery\MockInterface
